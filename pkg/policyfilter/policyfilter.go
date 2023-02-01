@@ -33,11 +33,11 @@ func GetState() (State, error) {
 // State is the policyfilter state interface
 // It handles two things:
 //   - policies being added and removed
-//   - pod continers being created and deleted.
+//   - pod containers being added and deleted.
 type State interface {
-	// AddPolicy adds state a policy to the state
+	// AddPolicy adds a policy to the state
 	AddPolicy(polID PolicyID, namespace string) error
-	// DelPolicy will removes a policy from the state
+	// DelPolicy removes a policy from the state
 	DelPolicy(polID PolicyID) error
 
 	// AddPodContainer informs policyfilter about a new container in a pod.

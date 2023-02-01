@@ -10,7 +10,8 @@ PROGS = sigkill-tester \
 	sigkill-unprivileged-user-ns-tester \
 	nop \
 	exit-leader \
-	exit-tester
+	exit-tester \
+	lseek-pipe
 
 all: $(PROGS)
 
@@ -29,6 +30,11 @@ sigkill-unprivileged-user-ns-tester: sigkill-unprivileged-user-ns-tester.c
 exit-leader: exit-leader.c
 	$(GCC) -Wall $< -o $@ -lpthread
 
+lseek-pipe: FORCE
+	go build -o lseek-pipe ./go/lseek-pipe
+
 .PHONY: clean
 clean:
 	rm -f $(PROGS)
+
+FORCE:

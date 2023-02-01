@@ -8,3 +8,4 @@ nop
 sigkill-unprivileged-user-ns-tester
 exit-leader
 exit-tester
+lseek-pipe
