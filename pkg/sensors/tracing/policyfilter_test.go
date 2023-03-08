@@ -135,7 +135,15 @@ func TestNamespacedPolicies(t *testing.T) {
 	option.Config.HubbleLib = tus.Conf().TetragonLib
 	err := confmap.UpdateTgRuntimeConf(bpf.MapPrefixPath(), os.Getpid())
 	require.NoError(t, err)
+
+	oldEnablePolicyFilterValue := option.Config.EnablePolicyFilter
 	option.Config.EnablePolicyFilter = true
+	policyfilter.ResetStateOnlyForTesting()
+	t.Cleanup(func() {
+		option.Config.EnablePolicyFilter = oldEnablePolicyFilterValue
+		policyfilter.ResetStateOnlyForTesting()
+	})
+
 	tus.LoadSensor(ctx, t, base.GetInitialSensor())
 	tus.LoadSensor(ctx, t, testsensor.GetTestSensor())
 	sm := tus.StartTestSensorManager(ctx, t)
